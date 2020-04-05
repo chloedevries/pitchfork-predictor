@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import datetime
-import pitchfork_predictor.scrapefork
+import scrapefork
 
 from scrapefork import *
 

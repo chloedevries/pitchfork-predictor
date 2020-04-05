@@ -31,7 +31,7 @@ def parse_lineup_data_string(lineups_raw):
 
 def count_previous_appearances(lineups):
     lineups['ct'] = 1
-    lineups.sort_values(['artist_clean', 'fest_date'])
+    lineups.sort_values(['artist_clean', 'fest_date'], inplace=True)
     lineups['previous_fest_count'] = lineups \
                                     .groupby('artist_clean').ct.cumsum()
     lineups = lineups.drop('ct', axis = 1)

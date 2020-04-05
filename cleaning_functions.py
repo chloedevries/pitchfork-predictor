@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import datetime
 
 def clean_reviews_df(reviews_df):
     reviews = reviews_df.copy()
@@ -124,7 +125,7 @@ def group_articles_by_year(articles):
     article_types = articles.article_type.unique().tolist()
     article_types.remove(np.nan)
 
-    for year in range(2006, 2020):
+    for year in range(2006, 2021):
         fest_date = datetime.datetime(int(year), 7, 15)
         announcement_date = datetime.datetime(int(year), 3, 1)
         # filter features to those before announcement of given festival
@@ -180,7 +181,7 @@ def normalize_variable(df, column):
 
 def join_year_dfs(dfs_dict):
     entire_df = pd.DataFrame()
-    for year in range(2006, 2020):
+    for year in range(2006, 2021):
         entire_df = entire_df.append(dfs_dict[year])
     return entire_df
 
@@ -188,7 +189,7 @@ def join_year_dfs(dfs_dict):
 def join_lineups(df, lineups_df, how):
     lineups_df['played_fest'] = True
     joined_df = df.set_index(['artist_clean', 'fest_date']) \
-        .join(lineups.set_index(['artist_clean', 'fest_date']) \
+        .join(lineups_df.set_index(['artist_clean', 'fest_date']) \
                   [['played_previous_fest', 'played_fest']],
               how=how, lsuffix='_word_vec').reset_index()
     joined_df['played_fest'].fillna(False, inplace=True)
